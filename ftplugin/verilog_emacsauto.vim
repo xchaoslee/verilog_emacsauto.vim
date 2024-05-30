@@ -47,8 +47,8 @@ function s:Add()
    " a tmp file is need 'cause emacs doesn't support the stdin to stdout flow
    " maybe add /tmp to the temporary filename
    w! %.emacsautotmp
-   !emacs -batch -l ~/elisp/verilog-mode.el %.emacsautotmp -f verilog-batch-auto
-   %!cat %.emacsautotmp 
+   !emacs -batch -l ~/.vim/verilog-mode.el %.emacsautotmp -f verilog-batch-auto
+   %!cat %.emacsautotmp -rf
    if &expandtab
       retab
       let &tabstop=s:save_tabstop
@@ -65,19 +65,19 @@ function s:Delete()
    " a tmp file is need 'cause emacs doesn't support the stdin to stdout flow
    " maybe add /tmp to the temporary filename
    w! %.emacsautotmp
-   !emacs -batch -l ~/elisp/verilog-mode.el %.emacsautotmp -f verilog-batch-delete-auto
+   !emacs -batch -l ~/.vim/verilog-mode.el %.emacsautotmp -f verilog-batch-delete-auto
    %!cat %.emacsautotmp 
-   !rm %.emacsautotmp
+   !rm %.emacsautotmp -rf
 endfunction
 
-" VerilogEmacsAutoFoldLevel function
-" only deals with 0 and 1 levels
-function VerilogEmacsAutoFoldLevel(l)
-   if (getline(a:l-1)=~'\/\*A\S*\*\/' && getline(a:l)=~'\/\/ \(Outputs\|Inputs\|Inouts\|Beginning\)')
-      return 1
-   endif
-   if (getline(a:l-1)=~'\(End of automatics\|);\)')
-      return 0
-   endif
-   return '='
-endfunction
+"" VerilogEmacsAutoFoldLevel function
+"" only deals with 0 and 1 levels
+"function VerilogEmacsAutoFoldLevel(l)
+"   if (getline(a:l-1)=~'\/\*A\S*\*\/' && getline(a:l)=~'\/\/ \(Outputs\|Inputs\|Inouts\|Beginning\)')
+"      return 1
+"   endif
+"   if (getline(a:l-1)=~'\(End of automatics\|);\)')
+"      return 0
+"   endif
+"   return '='
+"endfunction
